@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_02_12_032737) do
+ActiveRecord::Schema[7.0].define(version: 2022_02_14_000746) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -70,6 +70,26 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_12_032737) do
     t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
+  end
+
+  create_table "maintenance_tasks_runs", force: :cascade do |t|
+    t.string "task_name", null: false
+    t.datetime "started_at", precision: nil
+    t.datetime "ended_at", precision: nil
+    t.float "time_running", default: 0.0, null: false
+    t.integer "tick_count", default: 0, null: false
+    t.integer "tick_total"
+    t.string "job_id"
+    t.bigint "cursor"
+    t.string "status", default: "enqueued", null: false
+    t.string "error_class"
+    t.string "error_message"
+    t.text "backtrace"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "arguments"
+    t.integer "lock_version", default: 0, null: false
+    t.index ["task_name", "created_at"], name: "index_maintenance_tasks_runs_on_task_name_and_created_at", order: { created_at: :desc }
   end
 
   create_table "posts", force: :cascade do |t|

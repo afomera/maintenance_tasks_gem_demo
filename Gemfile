@@ -86,3 +86,5 @@ gem "whenever", require: false
 gem "responders", github: "heartcombo/responders", branch: "main"
 
 gem "pagy", "~> 5.10"
+
+gem "maintenance_tasks", "~> 1.8"

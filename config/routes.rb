@@ -1,6 +1,7 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  mount MaintenanceTasks::Engine => "/maintenance_tasks"
   resources :posts
   get '/privacy', to: 'home#privacy'
   get '/terms', to: 'home#terms'
